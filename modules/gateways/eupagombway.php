@@ -46,10 +46,11 @@ if(!class_exists('euPagoMBWAY')){
         public $config = array(
             'endpoint_live' => 'https://seguro.eupago.pt/eupagov5.wsdl',
             'endpoint_sandbox' => 'http://replica.eupago.pt/replica.eupagov5.wsdl',
-            'payment_logo' => 'https://xxxxx.pt/templates/six/img/mbway.png',
+            'payment_logo' => 'https://my.xxxx.pt/assets/img/gateways/mbway.png',
+            'payment_failed' => 'https://my.xxxx.pt/assets/img/gateways/payment_failed.png',
+            'payment_done' => 'https://my.xxxx.pt/assets/img/gateways/payment_done.png',
             'table_name' => 'tbleupago_mbway',
-            'table_comment' => 'Table Created to manage MBway Payments with love',
-            'error_message' => 'An error happened while generating your payment details, please try again.'
+            'table_comment' => 'Table Created to manage MBway Payments with love from ecorp',
         );
 
         public $phone_number = '';
@@ -323,10 +324,15 @@ if(!class_exists('euPagoMBWAY')){
          */
         public function getTemplateError(){
             $template = '
-            <table style="margin-top: 10px;" width="200px" cellspacing="0" align="center">
+            <table style="margin-top: 10px;" width="60%" cellspacing="0" align="center">
             <tr>
                 <td colspan="2" align="center">
-                   <p style="font-size:13px;"><strong>'.$this->config['error_message'].'</strong></p>
+                  <img src="'.$this->config['payment_failed'].'" width="50px">
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2" align="center">
+                   <p style="font-size:12px;">'.Lang::trans('payment_failed').'</p>
                 </td>
             </tr>
             </table>';

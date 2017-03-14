@@ -39,10 +39,10 @@ if(!class_exists('euPagoMultibanco')){
         public $config = array(
             'endpoint_live' => 'https://seguro.eupago.pt/eupagov5.wsdl',
             'endpoint_sandbox' => 'http://replica.eupago.pt/replica.eupagov5.wsdl',
-            'payment_logo' => 'https://xxxxx.pt/templates/six/img/multibanco.png',
+            'payment_logo' => 'https://my.xxxx.pt/assets/img/gateways/multibanco.png',
+            'payment_failed' => 'https://my.xxxx.pt/assets/img/gateways/payment_failed.png',
             'table_name' => 'tbleupago_multibanco',
             'table_comment' => 'Table Created to manage Multibanco Payments with love from ecorp',
-            'error_message' => 'An error happened while generating your payment details, please try again.'
         );
 
         /**
@@ -191,12 +191,12 @@ if(!class_exists('euPagoMultibanco')){
          */
         public function tableRecordExists($data){
             $count = Capsule::table($this->config['table_name'])->where([
-                    ['invoiceid','=', $data['invoiceid']],
-                    ['orderid', '=', $data['orderid']],
-                    ['entidade', '=', $data['entidade']],
-                    ['referencia', '=', str_replace(' ', '', $data['referencia'])],
-                    ['valor', '=', $data['valor']],
-                ])->count();
+                ['invoiceid','=', $data['invoiceid']],
+                ['orderid', '=', $data['orderid']],
+                ['entidade', '=', $data['entidade']],
+                ['referencia', '=', str_replace(' ', '', $data['referencia'])],
+                ['valor', '=', $data['valor']],
+            ])->count();
             return $count >= 1;
         }
 
@@ -280,16 +280,17 @@ if(!class_exists('euPagoMultibanco')){
             return $template;
         }
 
-        /**
-         * Returns the Error Template
-         * @return string
-         */
         public function getTemplateError(){
             $template = '
-            <table style="margin-top: 10px;" width="200px" cellspacing="0" align="center">
+            <table style="margin-top: 10px;" width="60%" cellspacing="0" align="center">
+             <tr>
+                <td colspan="2" align="center">
+                  <img src="'.$this->config['payment_failed'].'" width="50px">
+                </td>
+            </tr>
             <tr>
                 <td colspan="2" align="center">
-                   <p style="font-size:13px;"><strong>'.$this->config['error_message'].'</strong></p>
+                   <p style="font-size:12px;">'.Lang::trans('payment_failed').'</p>
                 </td>
             </tr>
             </table>';
