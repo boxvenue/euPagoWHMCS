@@ -47,3 +47,20 @@ possible.
 - [ ] Rename tables to mod_eupago_*
 - [ ] Implement Traits for Soap Client and Template rendering
 - [ ] Join all subclasses in one main class to server multiple mini-gateways
+- [ ] Add Credit Card Processor
+- [ ] Add options to set Amount Max/min per Payment
+- [ ] Add option to set a due date for a certain Payment
+- [ ] Add Credit Card Pre-Charge
+- [ ] Add Get Payment system
+- [ ] Move Payment Statuses to static.
+
+# Faking Success Payments
+Visit : https://www.hurl.it/
+Destination : GET http://xxxx.com/modules/gateways/callback/eupagocallback.php
+Params : 
+ - mp = PC:PT ( for Multibanco )
+ - chave_api = xxxx-xxxx-xxxx ( Your private key keep it safe )
+ - referencia = 1234567 ( Your reference number ) 
+ - valor = 19.5 ( Your amount in cash )
+ 
+ 
