@@ -38,10 +38,10 @@ if(!class_exists('euPagoPayshop')){
          */
         public $config = array(
             'endpoint_live' => 'https://seguro.eupago.pt/eupagov5.wsdl',
-            'endpoint_sandbox' => 'http://replica.eupago.pt/replica.eupagov5.wsdl',
-            'payment_logo' => 'https://my.xxxx.pt/assets/img/gateways/payshop.png',
-            'payment_failed' => 'https://my.xxxx.pt/assets/img/gateways/payment_failed.png',
-            'payment_done' => 'https://my.xxxx.pt/assets/img/gateways/payment_done.png',
+            'endpoint_sandbox' => 'http://replica.eupago.pt/replica.eupagov5_no_ssl.wsdl',
+            'payment_logo' => 'https://mysite.com/assets/img/gateways/payshop.png',
+            'payment_failed' => 'https://mysite.com/assets/img/gateways/payment_failed.png',
+            'payment_done' => 'https://mysite.com/assets/img/gateways/payment_done.png',
             'table_name' => 'tbleupago_payshop',
             'table_comment' => 'Table Created to manage Payshop Payments with love from ecorp',
         );
@@ -251,7 +251,7 @@ if(!class_exists('euPagoPayshop')){
             <small class="small-text" style="font-size:10px;">
                     '.Lang::trans('paymentpayshop_instructions').'
             </small>
-            <table style="margin-top:10px;" width="200px" cellspacing="1" align="">
+            <table style="margin-top:10px;" width="60%" cellspacing="1" align="">
             <tr>
                 <td colspan="2" align="center">
                     <img src="'.$this->config['payment_logo'].'" alt="'.Lang::trans('paymentpayshop_name').'" height="50px" />
@@ -280,7 +280,7 @@ if(!class_exists('euPagoPayshop')){
          */
         public function getTemplateError(){
             $template = '
-            <table style="margin-top: 10px;" width="60%" cellspacing="0" align="center">
+            <table style="margin-top:10px;" width="60%" cellspacing="0" align="center">
             <tr>
                 <td colspan="2" align="center">
                   <img src="'.$this->config['payment_failed'].'" width="50px">

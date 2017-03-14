@@ -13,6 +13,8 @@ http://docs.whmcs.com/Gateway_Module_Developer_Docs
 The recommended structure of a third party gateway module is as follows.
 
 ```
+ assets/img/
+  |- gateways/gatewayicon.png
  modules/gateways/
   |- callback/eupagocallback.php
   |  eupagombway.php
@@ -42,7 +44,7 @@ possible.
 - [x] Update EuPago - Payshop
 - [x] Update EuPago - PaySafeCard
 - [x] Update EuPago - PagoAqui
-- [ ] Check for Remaining Translations
+- [x] Check for Remaining Translations
 - [ ] Do English Translations
 - [ ] Rename tables to mod_eupago_*
 - [ ] Implement Traits for Soap Client and Template rendering
@@ -56,7 +58,9 @@ possible.
 
 # Faking Success Payments
 Visit : https://www.hurl.it/
+
 Destination : GET http://xxxx.com/modules/gateways/callback/eupagocallback.php
+
 Params : 
  - mp = PC:PT ( for Multibanco )
  - chave_api = xxxx-xxxx-xxxx ( Your private key keep it safe )

@@ -38,9 +38,9 @@ if(!class_exists('euPagoMultibanco')){
          */
         public $config = array(
             'endpoint_live' => 'https://seguro.eupago.pt/eupagov5.wsdl',
-            'endpoint_sandbox' => 'http://replica.eupago.pt/replica.eupagov5.wsdl',
-            'payment_logo' => 'https://my.xxxx.pt/assets/img/gateways/multibanco.png',
-            'payment_failed' => 'https://my.xxxx.pt/assets/img/gateways/payment_failed.png',
+            'endpoint_sandbox' => 'http://replica.eupago.pt/replica.eupagov5_no_ssl.wsdl',
+            'payment_logo' => 'https://mysite.com/assets/img/gateways/multibanco.png',
+            'payment_failed' => 'https://mysite.com/assets/img/gateways/payment_failed.png',
             'table_name' => 'tbleupago_multibanco',
             'table_comment' => 'Table Created to manage Multibanco Payments with love from ecorp',
         );
@@ -253,7 +253,7 @@ if(!class_exists('euPagoMultibanco')){
             <small class="small-text" style="font-size:10px;">
                     '.Lang::trans('paymentmb_instructions').'
             </small>
-            <table style="margin-top:10px;" width="200px" cellspacing="1" align="">
+            <table style="margin-top:10px;" width="60%" cellspacing="1" align="">
             <tr>
                 <td colspan="2" align="center">
                     <img src="'.$this->config['payment_logo'].'" alt="'.Lang::trans('paymentmb_name').'" height="50px" />

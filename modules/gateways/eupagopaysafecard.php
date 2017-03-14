@@ -38,10 +38,10 @@ if(!class_exists('euPagoPaysafecard')){
          */
         public $config = array(
             'endpoint_live' => 'https://seguro.eupago.pt/eupagov5.wsdl',
-            'endpoint_sandbox' => 'http://replica.eupago.pt/replica.eupagov5.wsdl',
-            'payment_logo' => 'https://my.xxxx.pt/assets/img/gateways/paysafecard.png',
-            'payment_failed' => 'https://my.xxxx.pt/assets/img/gateways/payment_failed.png',
-            'payment_done' => 'https://my.xxxx.pt/assets/img/gateways/payment_done.png',
+            'endpoint_sandbox' => 'http://replica.eupago.pt/replica.eupagov5_no_ssl.wsdl',
+            'payment_logo' => 'https://mysite.com/assets/img/gateways/paysafecard.png',
+            'payment_failed' => 'https://mysite.com/assets/img/gateways/payment_failed.png',
+            'payment_done' => 'https://mysite.com/assets/img/gateways/payment_done.png',
             'table_name' => 'tbleupago_paysafecard',
             'table_comment' => 'Table Created to manage Paysafecard Payments with love from ecorp',
         );
@@ -77,21 +77,19 @@ if(!class_exists('euPagoPaysafecard')){
                 ->where('invoiceid',$invoice)
                 ->first();
 
-            echo "Im here";
-            var_dump($record);
             # Already requested payment found
             if($record !== null){
                 $data['url'] = $record->url;
                 $data['referencia'] =  $record->referencia;
-                $data['valor'] = $record->valor;
+                $data['valor'] = $amount;
             } else{
                 # Requesting Payment details from provider
-                echo "Im here";
                 $request = $this->requestPayment($key, $invoice, $amount);
+
                 if(is_object($request) && isset($request->referencia)){
                     $data['url'] = $request->url;
                     $data['referencia'] =  $request->referencia;
-                    $data['valor'] = $request->valor;
+                    $data['valor'] = $amount;
                     # Add the record, since it didnt existed
                     $this->tableAdd(
                         array_merge(
@@ -268,21 +266,13 @@ if(!class_exists('euPagoPaysafecard')){
             <small class="small-text" style="font-size:10px;">
                     '.Lang::trans('paymentpaysafe_instructions').'
             </small>
-            <table style="margin-top:10px;" width="200px" cellspacing="1" align="">
+            <table style="margin-top:10px;" width="60%" cellspacing="1" align="">
             <tr>
                 <td colspan="2" align="center">
                     <img src="'.$this->config['payment_logo'].'" alt="'.Lang::trans('paymentpaysafe_name').'" height="50px" />
                 </td>
             </tr>
-            <tr>
-                <td colspan="2" align="center">
-                   &nbsp;
-                </td>
-            </tr>
-            <tr>
-                <td align="left" style="font-size:small;font-weight:bold;padding-left:15px;">'.Lang::trans('paymentpaysafe_url').':</td>
-                <td align="left" style="font-size:small;">' . $url . '</td>
-            </tr>
+            <tr><td colspan="2" align="center"> </td></tr>
             <tr>
                 <td align="left" style="font-size:small;font-weight:bold;padding-left:15px;">'.Lang::trans('paymentpaysafe_ref').':</td>
                 <td align="left" style="font-size:small;">' . $reference . ' </td>
@@ -291,8 +281,8 @@ if(!class_exists('euPagoPaysafecard')){
                 <td align="left" style="font-size:small;font-weight:bold;padding-left:15px;">'.Lang::trans('paymentpaysafe_amount').':</td>
                 <td align="left" style="font-size:small;">' . $amount . ' EUR</td>
             </tr>
-            <tr><td align="center" style="font-size:small;font-weight:bold;">&nbsp;</td></tr>
-            <tr><td align="center" style="font-size:small;"><button type="submit" value="'.Lang::trans('invoicespaynow').'" style="btn btn-sm btn-default">'.Lang::trans('invoicespaynow').'</button></td></tr>
+            <tr><td colspan="2" align="center" style="font-size:small;font-weight:bold;">&nbsp;</td></tr>
+            <tr><td colspan="2" width="100%" style="font-size:small;"><a href="'.$url.'" target="_blank" class="btn btn-sm btn-default">'.Lang::trans('invoicespaynow').'</button></td></tr>
             </table>';
             return $template;
         }

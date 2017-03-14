@@ -1,5 +1,6 @@
 <?php
 use Illuminate\Database\Capsule\Manager as Capsule;
+# TODO : Translations
 
 /**
  * Generates the Configuration for the Plugin
@@ -45,10 +46,10 @@ if(!class_exists('euPagoMBWAY')){
          */
         public $config = array(
             'endpoint_live' => 'https://seguro.eupago.pt/eupagov5.wsdl',
-            'endpoint_sandbox' => 'http://replica.eupago.pt/replica.eupagov5.wsdl',
-            'payment_logo' => 'https://my.xxxx.pt/assets/img/gateways/mbway.png',
-            'payment_failed' => 'https://my.xxxx.pt/assets/img/gateways/payment_failed.png',
-            'payment_done' => 'https://my.xxxx.pt/assets/img/gateways/payment_done.png',
+            'endpoint_sandbox' => 'http://replica.eupago.pt/replica.eupagov5_no_ssl.wsdl',
+            'payment_logo' => 'https://mysite.com/assets/img/gateways/mbway.png',
+            'payment_failed' => 'https://mysite.com/assets/img/gateways/payment_failed.png',
+            'payment_done' => 'https://mysite.com/assets/img/gateways/payment_done.png',
             'table_name' => 'tbleupago_mbway',
             'table_comment' => 'Table Created to manage MBway Payments with love from ecorp',
         );
@@ -350,18 +351,18 @@ if(!class_exists('euPagoMBWAY')){
                     '.Lang::trans('paymentmbway_instructions').'
             </small>
             <form action="viewinvoice.php?id='.$invoiceId.'" method="POST">
-            <table style="margin-top:10px;max-width:100%;" width="60%" cellspacing="1" align="center">
-            <tr>
-                <td colspan="2" align="center">
-                    <img src="'.$this->config['payment_logo'].'" alt="'.Lang::trans('paymentmbway_name').'" height="50px" />
-                </td>
-            </tr>
-          
-            <tr><td align="center" style="font-size:small;font-weight:bold;">'.Lang::trans('paymentmbway_phone').':</td></tr>
-            <tr><td align="left" style="font-size:small;"><input class="form-control" placeholder="Ex : 913585831" value="'.$this->phone_number.'" type="text" name="alias"></td></tr>
-            <tr><td align="center" style="font-size:small;font-weight:bold;">&nbsp;</td></tr>
-            <tr><td align="center" style="font-size:small;"><button type="submit" value="'.Lang::trans('invoicespaynow').'" style="btn btn-sm btn-default">'.Lang::trans('invoicespaynow').'</button></td></tr>
-            </table>
+                <table style="margin-top:10px;max-width:100%;" width="60%" cellspacing="1" align="center">
+                <tr>
+                    <td colspan="2" align="center">
+                        <img src="'.$this->config['payment_logo'].'" alt="'.Lang::trans('paymentmbway_name').'" height="50px" />
+                    </td>
+                </tr>
+              
+                <tr><td align="center" style="font-size:small;font-weight:bold;">'.Lang::trans('paymentmbway_phone').':</td></tr>
+                <tr><td align="left" style="font-size:small;"><input class="form-control" placeholder="Ex: 913585831" value="'.$this->phone_number.'" type="text" name="alias"></td></tr>
+                <tr><td align="center" style="font-size:small;font-weight:bold;">&nbsp;</td></tr>
+                <tr><td align="center" style="font-size:small;"><button type="submit" value="'.Lang::trans('invoicespaynow').'" class="btn btn-sm btn-default">'.Lang::trans('invoicespaynow').'</button></td></tr>
+                </table>
             </form>';
             return $template;
         }
